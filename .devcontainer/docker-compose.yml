@@ -1,0 +1,15 @@
+version: "3"
+volumes:
+  yarn-cache:
+services:
+  amplify:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /workspaces
+    volumes:
+      - ../:/workspaces
+      - ${HOME}${USERPROFILE}/.aws:/home/node/.aws
+      - ${HOME}${USERPROFILE}/.git:/home/node/.git
+    # プロセスが終了してコンテナが終了してしまわないように
+    command: /bin/sh -c "while sleep 1000; do :; done"
